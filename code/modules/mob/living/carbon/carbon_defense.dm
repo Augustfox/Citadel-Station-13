@@ -14,7 +14,7 @@
 		var/obj/item/clothing/mask/MFP = src.wear_mask
 		number += MFP.flash_protect
 
-	var/obj/item/organ/eyes/E = getorganslot("eye_sight")
+	var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
 	if(!E)
 		number = INFINITY //Can't get flashed without eyes
 	else
@@ -28,7 +28,7 @@
 		number += 1
 	if(head && (head.flags_2 & BANG_PROTECT_2))
 		number += 1
-	var/obj/item/organ/ears/E = getorganslot("ears")
+	var/obj/item/organ/ears/E = getorganslot(ORGAN_SLOT_EARS)
 	if(!E)
 		number = INFINITY
 	else
@@ -113,13 +113,13 @@
 
 	for(var/thing in viruses)
 		var/datum/disease/D = thing
-		if(D.IsSpreadByTouch())
-			user.ContractDisease(D)
+		if(D.spread_flags & VIRUS_SPREAD_CONTACT_SKIN)
+			user.ContactContractDisease(D)
 
 	for(var/thing in user.viruses)
 		var/datum/disease/D = thing
-		if(D.IsSpreadByTouch())
-			ContractDisease(D)
+		if(D.spread_flags & VIRUS_SPREAD_CONTACT_SKIN)
+			ContactContractDisease(D)
 
 	if(lying && surgeries.len)
 		if(user.a_intent == INTENT_HELP)
@@ -132,13 +132,13 @@
 /mob/living/carbon/attack_paw(mob/living/carbon/monkey/M)
 	for(var/thing in viruses)
 		var/datum/disease/D = thing
-		if(D.IsSpreadByTouch())
-			M.ContractDisease(D)
+		if(D.spread_flags & VIRUS_SPREAD_CONTACT_SKIN)
+			M.ContactContractDisease(D)
 
 	for(var/thing in M.viruses)
 		var/datum/disease/D = thing
-		if(D.IsSpreadByTouch())
-			ContractDisease(D)
+		if(D.spread_flags & VIRUS_SPREAD_CONTACT_SKIN)
+			ContactContractDisease(D)
 
 	if(M.a_intent == INTENT_HELP)
 		help_shake_act(M)
@@ -250,6 +250,9 @@
 	if(health >= 0 && !(status_flags & FAKEDEATH))
 
 		if(lying)
+			if(buckled)
+				to_chat(M, "<span class='warning'>You need to unbuckle [src] first to do that!")
+				return
 			M.visible_message("<span class='notice'>[M] shakes [src] trying to get [p_them()] up!</span>", \
 							"<span class='notice'>You shake [src] trying to get [p_them()] up!</span>")
 		else if(check_zone(M.zone_selected) == "head")
@@ -276,7 +279,7 @@
 
 	var/damage = intensity - get_eye_protection()
 	if(.) // we've been flashed
-		var/obj/item/organ/eyes/eyes = getorganslot("eye_sight")
+		var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
 		if (!eyes)
 			return
 		if(visual)
@@ -320,7 +323,7 @@
 
 /mob/living/carbon/soundbang_act(intensity = 1, stun_pwr = 20, damage_pwr = 5, deafen_pwr = 15)
 	var/ear_safety = get_ear_protection()
-	var/obj/item/organ/ears/ears = getorganslot("ears")
+	var/obj/item/organ/ears/ears = getorganslot(ORGAN_SLOT_EARS)
 	var/effect_amount = intensity - ear_safety
 	if(effect_amount > 0)
 		if(stun_pwr)
@@ -360,6 +363,6 @@
 
 /mob/living/carbon/can_hear()
 	. = FALSE
-	var/obj/item/organ/ears/ears = getorganslot("ears")
+	var/obj/item/organ/ears/ears = getorganslot(ORGAN_SLOT_EARS)
 	if(istype(ears) && !ears.deaf)
 		. = TRUE

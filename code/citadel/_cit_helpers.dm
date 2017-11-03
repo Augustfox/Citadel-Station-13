@@ -26,7 +26,7 @@ proc/get_racelist(var/mob/user)//This proc returns a list of species that 'user'
 		var/list/wlist = S.whitelist
 		if(S.whitelisted && (wlist.Find(user.ckey) || wlist.Find(user.key) || user.client.holder))  //If your ckey is on the species whitelist or you're an admin:
 			GLOB.whitelisted_species_list[S.id] = S.type 											//Add the species to their available species list.
-		else if(!S.whitelisted && S.roundstart)														//Normal roundstart species will be handled here.
+		else if(!S.whitelisted)														//Normal roundstart species will be handled here.
 			GLOB.whitelisted_species_list[S.id] = S.type
 
 	return GLOB.whitelisted_species_list
@@ -92,6 +92,9 @@ GLOBAL_LIST_EMPTY(mentors)
 //Looc stuff
 GLOBAL_VAR_INIT(looc_allowed, 1)
 GLOBAL_VAR_INIT(dlooc_allowed, 1)
+
+//Crew objective and miscreants stuff
+GLOBAL_VAR_INIT(miscreants_allowed, FALSE)
 
 /client/proc/reload_mentors()
 		set name = "Reload Mentors"

@@ -11,6 +11,7 @@
 	else
 		new /obj/item/storage/backpack/satchel/cap(src)
 	new /obj/item/clothing/neck/cloak/cap(src)
+	new /obj/item/clothing/neck/petcollar(src)
 	new /obj/item/storage/backpack/duffelbag/captain(src)
 	new /obj/item/clothing/head/crown/fancy(src)
 	new /obj/item/clothing/suit/captunic(src)
@@ -27,7 +28,7 @@
 	new /obj/item/clothing/gloves/color/captain(src)
 	new /obj/item/restraints/handcuffs/cable/zipties(src)
 	new /obj/item/storage/belt/sabre(src)
-	new /obj/item/gun/energy/e_gun(src)
+	new /obj/item/gun/energy/e_gun/cx(src)
 	new /obj/item/door_remote/captain(src)
 
 /obj/structure/closet/secure_closet/hop
@@ -50,7 +51,7 @@
 	new /obj/item/device/assembly/flash/handheld(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/restraints/handcuffs/cable/zipties(src)
-	new /obj/item/gun/energy/e_gun(src)
+	new /obj/item/gun/energy/e_gun/cx(src)
 	new /obj/item/clothing/neck/petcollar(src)
 	new /obj/item/door_remote/civillian(src)
 
@@ -108,7 +109,6 @@
 	new /obj/item/clothing/gloves/krav_maga/sec(src)
 	new /obj/item/door_remote/head_of_security(src)
 	new /obj/item/gun/ballistic/shotgun/automatic/combat/compact(src)
-	new /obj/item/pinpointer/crew(src)
 
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"

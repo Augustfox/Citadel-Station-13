@@ -8,6 +8,8 @@
 
 #define ismovableatom(A) (istype(A, /atom/movable))
 
+#define isatom(A) (istype(A, /atom))
+
 //Turfs
 //#define isturf(A) (istype(A, /turf)) This is actually a byond built-in. Added here for completeness sake.
 
@@ -28,6 +30,8 @@
 #define ismineralturf(A) (istype(A, /turf/closed/mineral))
 
 #define islava(A) (istype(A, /turf/open/lava))
+
+#define ischasm(A) (istype(A, /turf/open/chasm))
 
 #define isplatingturf(A) (istype(A, /turf/open/floor/plating))
 
@@ -133,12 +137,16 @@
 
 #define isovermind(A) (istype(A, /mob/camera/blob))
 
+#define iscameramob(A) (istype(A, /mob/camera))
+
 //Objects
 #define isobj(A) istype(A, /obj) //override the byond proc because it returns true on children of /atom/movable that aren't objs
 
 #define isitem(A) (istype(A, /obj/item))
 
 #define isstructure(A) (istype(A, /obj/structure))
+
+#define ismachinery(A) (istype(A, /obj/machinery))
 
 #define ismecha(A) (istype(A, /obj/mecha))
 

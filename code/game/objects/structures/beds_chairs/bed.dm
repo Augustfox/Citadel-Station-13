@@ -101,7 +101,7 @@
 	desc = "A collapsed roller bed that can be carried around."
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "folded"
-	w_class = WEIGHT_CLASS_BULKY // Can't be put in backpacks.
+	w_class = WEIGHT_CLASS_NORMAL // No more excuses, stop getting blood everywhere
 
 /obj/item/roller/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/roller/robo))
@@ -113,7 +113,8 @@
 		R.loaded = new/obj/structure/bed/roller(R)
 		qdel(src) //"Load"
 		return
-	else return ..()
+	else
+		return ..()
 
 /obj/item/roller/attack_self(mob/user)
 	deploy_roller(user, user.loc)
@@ -193,5 +194,5 @@
 
 /obj/structure/bed/alien
 	name = "resting contraption"
-	desc = "This looks similar to contraptions from earth. Could aliens be stealing our technology?"
+	desc = "This looks similar to contraptions from Earth. Could aliens be stealing our technology?"
 	icon_state = "abed"

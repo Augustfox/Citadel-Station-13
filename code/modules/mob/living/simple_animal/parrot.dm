@@ -125,7 +125,7 @@
 /mob/living/simple_animal/parrot/examine(mob/user)
 	..()
 	if(stat)
-		to_chat(user, pick("This parrot is no more", "This is a late parrot", "This is an ex-parrot"))
+		to_chat(user, pick("This parrot is no more.", "This is a late parrot.", "This is an ex-parrot."))
 
 /mob/living/simple_animal/parrot/death(gibbed)
 	if(held_item)
@@ -246,8 +246,8 @@
 
 						var/obj/item/device/radio/headset/headset_to_add = item_to_add
 
-						usr.drop_item()
-						headset_to_add.loc = src
+						if(!usr.transferItemToLoc(headset_to_add, src))
+							return
 						src.ears = headset_to_add
 						to_chat(usr, "<span class='notice'>You fit the headset onto [src].</span>")
 
@@ -340,7 +340,6 @@
 			drop_held_item(0)
 	else if(istype(O, /obj/item/reagent_containers/food/snacks/cracker)) //Poly wants a cracker.
 		qdel(O)
-		user.drop_item()
 		if(health < maxHealth)
 			adjustBruteLoss(-10)
 		speak_chance *= 1.27 // 20 crackers to go from 1% to 100%
@@ -515,7 +514,8 @@
 			return
 
 		walk_to(src, parrot_interest, 1, parrot_speed)
-		if(isStuck()) return
+		if(isStuck())
+			return
 
 		return
 
@@ -535,7 +535,8 @@
 			return
 
 		walk_to(src, parrot_perch, 1, parrot_speed)
-		if(isStuck()) return
+		if(isStuck())
+			return
 
 		return
 
@@ -548,7 +549,8 @@
 		walk_away(src, parrot_interest, 1, parrot_speed)
 		/*if(parrot_been_shot > 0)
 			parrot_been_shot--  didn't work anyways, and besides, any bullet poly survives isn't worth the speed boost.*/
-		if(isStuck()) return
+		if(isStuck())
+			return
 
 		return
 
@@ -587,7 +589,8 @@
 		//Otherwise, fly towards the mob!
 		else
 			walk_to(src, parrot_interest, 1, parrot_speed)
-			if(isStuck()) return
+			if(isStuck())
+				return
 
 		return
 //-----STATE MISHAP
@@ -902,9 +905,6 @@
 
 /mob/living/simple_animal/parrot/Poly/Life()
 	if(!stat && SSticker.current_state == GAME_STATE_FINISHED && !memory_saved)
-		rounds_survived = max(++rounds_survived,1)
-		if(rounds_survived > longest_survival)
-			longest_survival = rounds_survived
 		Write_Memory(FALSE)
 		memory_saved = TRUE
 	..()
@@ -970,7 +970,7 @@
 
 /mob/living/simple_animal/parrot/Poly/ghost
 	name = "The Ghost of Poly"
-	desc = "Doomed to squawk the earth."
+	desc = "Doomed to squawk the Earth."
 	color = "#FFFFFF77"
 	speak_chance = 20
 	status_flags = GODMODE
@@ -1001,10 +1001,9 @@
 	var/datum/disease/parrot_possession/P = new
 	P.parrot = src
 	loc = H
-	H.ContractDisease(P)
+	H.ForceContractDisease(P)
 	parrot_interest = null
 	H.visible_message("<span class='danger'>[src] dive bombs into [H]'s chest and vanishes!</span>", "<span class='userdanger'>[src] dive bombs into your chest, vanishing! This can't be good!</span>")
-
 
 /mob/living/simple_animal/parrot/clock_hawk
 	name = "clock hawk"
