@@ -221,7 +221,7 @@ function tag_pr($payload, $opened) {
 		$tags[] = 'Merge Conflict';
 
 	$treetags = array('_maps' => 'Map Edit', 'tools' => 'Tools', 'SQL' => 'SQL');
-	$addonlytags = array('icons' => 'Sprites', 'sounds' => 'Sound', 'config' => 'Config Update', 'code/controllers/configuration/entries' => 'Config Update', 'tgui' => 'UI');
+	$addonlytags = array('icons' => 'Sprites', 'sound' => 'Sound', 'config' => 'Config Update', 'code/controllers/configuration/entries' => 'Config Update', 'tgui' => 'UI');
 	foreach($treetags as $tree => $tag)
 		if(has_tree_been_edited($payload, $tree))
 			$tags[] = $tag;
@@ -456,13 +456,11 @@ function get_pr_code_friendliness($payload, $oldbalance = null){
 		'Grammar and Formatting' => 1,
 		'Priority: High' => 4,
 		'Priority: CRITICAL' => 5,
-		'Atmospherics' => 4,
 		'Logging' => 1,
 		'Feedback' => 1,
 		'Performance' => 3,
 		'Feature' => -1,
 		'Balance/Rebalance' => -1,
-		'Tweak' => -1,
 		'PRB: Reset' => $startingPRBalance - $oldbalance,
 	);
 
